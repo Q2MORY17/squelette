@@ -227,3 +227,21 @@ Now we have a way to process any errors in the system and track Over Currents as
       # switch off LED
       sleep(0.5)
   ```
+
+  **[ LOG entry 10-11-20 ]**: I have spent most of my day today trying and failing to set up another motor on a roboclaw with encoder capacities. It did not work for some reason that I can not fathom as the circuitry is correct and was double checked for connection with a multimeter. I also used an oscilloscope to check on the encoder signals and it seems the signals are there but weak and noisy. **I NEED A FUNCTIONNING MOTOR WITH ENCODERS TO MOVE FORWARD WRITING CODES**
+
+  This inadvertably got me thinking about solutions that would not depend on encoders, but rather on time or absolute positions (switches). it is important to remember that I have discovered that the ANT-52 do not have any internal limiters so there is **NO** absolute max and absolute min positions. Rather, the encoder will start to count up bogus values that are probably generated from its own magnetism/noise. (revision: I think there might be limiters in the ANT-52 but it is very weak and testing has shown runaway encoder values on several occasion pointing to a problem of reliability).
+
+  **WHAT DOES THIS MEAN? WHAT DO I LOSE BYPASSING ENCODERS?** 
+  + I lose all position functions as I can only use **PWM**<br>This is obviously a great loss as it means that I can no longer get feedback as to **'where'** the motor is. This also means that the entire logics side of the roboclaw is useless and might just as well be uncoupled. <br>The discussions to be had are: Is this really a problem? should we install a max/min switch combo and say bye-bye to all positional values? This would mean always shooting in the same angle but also it would mean the angle of reach to re-install the drone would be inpacted.<br>The motor always moves with the same speed so should we create a timer for it? that way all angle can be reached according to the timer? This obviously presents another issue where displacement can be slower due to wind when the launcher is outdoors and therefore the time to objective ration might be impacted negatively.
+  + I would no longer **have access to buffers**. This is a problem for orchestrated motions. although the ANT-52 only draws 5A with max load, it is still a problem that I can not get feedback on when it is in motion and not in motion.
+
+  **POINT IS. I HAVE TO TRY AND FIX THE ENCODER ISSUE IF I CAN. THAT'LL BE THE MISSION TOMORROW.**
+  
+  Plan of the day:
+  1. Set up the _new_ ANT-52 on BasicMicro and test it properly. Maybe get the source from the launcher to run experiments without stops.
+  2. Decide wether or not it is good to keep ( _although it is unclear if it can be returned at all_ ) and write an email to Peter.
+      + **if it is good to keep**: get all info from it and try out the lnchr.pitch.position(x) to confirm results and a potential integration in the robot.
+      + **if it is not good to keep**: I will have to build a **new, fault free** low pass filter. for that I will need to solder and the iron at SSRS is busted but I have plans to go to somewhere where I can use one on thursday. Redisgning one will not be an issue but I might need to get a hold of some raw material (i.e: resistors, capacitors, experimental board to solder on.)
+
+  3. **ONLY WHEN 2 HAS BEEN COMPLETED**  ```and```  we decide to carry on with encoders for the pitch, can we integrate the motor to my test motor and run an integration to the whole system. ```if```  **WE DECIDE TO GO WITHOUT THE ENCODERS**, test of my code can be run on the launcher but they will have to be run minding the loads and therefore they will take more time. 
