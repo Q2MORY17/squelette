@@ -5,7 +5,8 @@ from time import sleep
 import config
 import threading
 
-rc = Roboclaw("/dev/ttyACM0",115200)
+rc = Roboclaw("COM3", 115200)
+# rc = Roboclaw("/dev/ttyACM0",115200)
 rc.Open()
 
 testEvent = threading.Event()
