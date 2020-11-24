@@ -32,6 +32,14 @@ class Launcher():
             config.test['pulses_max'], config.test['pulses_unit'], config.test['length'], config.test['unit'], config.test['speed_pulses'], \
                 config.test['speed_manual'], config.test['ready'])
 
+        self.wheelL = Motor(config.wheelL['address'], config.wheelL['channel'], config.wheelL['pulses_min'], \
+            config.wheelL['pulses_max'], config.wheelL['pulses_unit'], config.wheelL['length'], config.wheelL['unit'], config.wheelL['speed_pulses'], \
+                config.wheelL['speed_manual'], config.wheelL['ready'])
+
+        self.wheelR = Motor(config.wheelR['address'], config.wheelR['channel'], config.wheelR['pulses_min'], \
+            config.wheelR['pulses_max'], config.wheelR['pulses_unit'], config.wheelR['length'], config.wheelR['unit'], config.wheelR['speed_pulses'], \
+                config.wheelR['speed_manual'], config.wheelR['ready'])
+
         self.motors = [self.pitch, self.rotation, self.lift, self._launch, self.case]
 
     def stop_all(self):
@@ -82,17 +90,17 @@ class Launcher():
         while testEvent.wait():
             while testEvent.is_set():
                 self.test.position(100000)
-                print("I asked it to go to 100 000")
+                print("I asked test to go to 100 000")
                 self.test.buffer_arithmetic()
                 sleep(0.02)
-                print("I waited until we got there")
+                print("I waited until I got there")
                 print(self.test.read_enc())
-                self.test.position(0)
-                print("now, I asked it to go to 0")
-                self.test.buffer_arithmetic()
+                self.wheelL.position(6154)
+                print("now, I asked the left wheel to go to 6154")
+                self.wheelL.buffer_arithmetic()
                 sleep(0.02)
                 print("I have arrived")
-                print(self.test.read_enc())
+                print(self.wheelL.read_enc())
                 testEvent.clear()
                 
                 

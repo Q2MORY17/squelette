@@ -245,3 +245,44 @@ Now we have a way to process any errors in the system and track Over Currents as
       + **if it is not good to keep**: I will have to build a **new, fault free** low pass filter. for that I will need to solder and the iron at SSRS is busted but I have plans to go to somewhere where I can use one on friday. Redisgning one will not be an issue but I might need to get a hold of some raw material (i.e: resistors, capacitors, experimental board to solder on.)
 
   3. **ONLY WHEN 2 HAS BEEN COMPLETED**  ```and```  we decide to carry on with encoders for the pitch, can we integrate the motor to my test motor and run an integration to the whole system. ```if```  **WE DECIDE TO GO WITHOUT THE ENCODERS**, test of my code can be run on the launcher but they will have to be run minding the loads and therefore they will take more time. 
+
+## EXTRA CONTROLS
+
+  **ANSWER THIS QUESTION:** if you have pressed on 'PREPARE' and then you press on 'MOUNT' what happens? since they are both threaded events, they could be accessing the same values at the same time and they would be unaware that the other routine is currently ongoing. This could lead to -at best- strange motions as the orders compete with each other or -at worst- a logical race that could damage the circuits and/or make them completely unpredictable. 
+  
+  **THOUGHTS:** This might call for a **state machine** or an **array** so that functions can not be triggered so long as another is **flagged**.<br>As we use **threaded events**, this might call for the use of **Locks**. something to look into.
+
+[Entry log 20-11-12]: Today I have started the day by testing the new ANT-52 actuator. Unfortunately with very inconclusive results. It seems the problem of noise offered by the other ANT-52 was resolved but a new issue has arisen where the speed pulse reading is unreliable. it has a somewhat 'floating' quality. I have written a mail to Peter at Sito Motors to report this and wait to see if they have any advice.<br>In the meantime I have to turm back to the original ANT-52. The problem of noise is more promising to solve than the problem of speed pulses. I have reinvestigated the problem of the Low Pass filter that originally triggered the ordfer of the new ANT-52. My belief was that it was busted and therefore we should get a better hardware not to have to rely on Low Pass anymore and have a system that was more robust. In investigating the Low Pass closer I realised that the issue that had me believe it was busted was in fact resistors embedded in the actual wires. I went back to the original thesis paper and could not find any notice of such components.<br>The details of the low pass are as such:
++ Noise frequency to shut out: 20kHz
++ Capacitor on board: 1nF
++ Resistor available: 8200 ohm
++ actual shut off frequency = 1/(2 pi RC) = 19409 Hz
+
+But in finding the resistors in the cables, I actually have two resistance in serie coming into this Low Pass filter (the embedded resistor value is 12kohm) and their total value is 22.2kohm. this means that the **actual shut off frequency** is actually **7169Hz** which may or may not be a problem but by all accounts, if the noise frequency is up towards 20kHz the low pass should work towards that frequency. Earlier in th season, when I assessed and developped a functionning Low Pass filter for the ANT-52, I was able to get some good results even if (or specially because) these resistors weren't in my design. retesting the ANT-52 is primordialand so I will design a back up filter all the whilst we can re-test the current Low Pass without the added resistors and see what results we can get.
+(I should add that although I can't quite figure out what the resistors were for, I am suspecting that there are more in more parts of the system. They could have been a way to try and simulate a a pull up resistor but if so, it is not how that is designed. a Pull up delivers extra current coming from a constant power source so that it is reliable)
+
+**AD HOC OBSERVED IN THE DAY**<br> In coming in, I noticed that the column was not turning as expected. I pointed that out and when we ran some tests on the motors, it was clear that the rotation motor had some trouble proceeding around. it could do it but it was far from flowless and given a PWM it would not be able to proceed effectively. trying it out with speed pulses commands would be more reliable.
+
+**DISCUSSIONS** <br>I pointed out today that the axel situated between the column and the base of the case if floating and that could be a problem if left unchecked. I also explained how the downwards motion of the pitch offers and slight angle due to the changing center of gravity in the case (when it is lowered and sent back up) this usually becomes visible as some screws being looser than usual in the back panel but now with the new cover, it might translate to some physical bending and as the screws are not easily reachable I recommended that checking screws as part of routine should take place every now and again.<br>We laso talked about the rotation and potential stoppers being installed later to keep the rotation from doing a full rotation. Which is of great interest when thinking about safety. so long as we can have physical stops, the system is safer than not.<br>
+
+**PITCH** physical max and min<br>
+**ROTATION** unbound<br>
+**LIFT** physical max and min<br>
+**LAUNCH** physical min but no bound max<br>
+**CASE** physical max and min<br>
+
+What is then left to try:<br>
+1. A solution has to be found as to what we can do with the ANT-52. 
+2. Manually tune all of the motors.
+3. Correct the launching code on the launcher using position
+4. See what can be done about my code and the launcher itself.
+
+[**ENTRY LOG 2020-11-24**]: What did I see today?
++ I have put together two motors on one roboclaw and was able to use the position() method as well as the buffer_arithmetic() to run motors one after the other. I have videos of their execution as well as a print out of the python shell session.<br>It is interesting to note that I did not get satisfying resuts last week when testing this as I trying to set a control with two buffers did not seem to translate well to the routine I wanted to see. videos of this are also available..
++ after that success I attached another Roboclaw with another motor to try and repeat the earlier test with hopefully the same results. **wheelR** motor's encoders stopped responding during the setup (not sure why but the motors are very cheap, so...).<br>Anyways, with the same codeing style as on one robclaw, I was able to observe **a good routine of one motor after the other with no delay in communication whatsoever**. I also have a video of that.
++ Following this, I tested a threaded event routine (**GIVING ME ACCESS TO STOP FUNCTION**) and I was able to observe a good set up with stops that were immediate. BUT also when the Event was set again, it would pick up where the previous left off. So that was good
+
+PROBLEMS STILL AFOOT:
+1. THE THREADS ARE NOT SAFE. OTHER FUNCTIONS CAN BE ACCESSED WHILE A THREAD IS ONGOING, POTENTIALLY LEADING TO A CLASH IN ORDERS.
+2. ALL MOTORS (except case) NEED POSITION SETTINGS TO BENEFIT FROM THE NEW CODES.<br>so far, the following motors have position settings:<br>PITCH<br>LAUNCH
+3. THE ANT-52 WILL NEED SOME EXTRA CARE.

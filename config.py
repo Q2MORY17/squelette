@@ -1,5 +1,5 @@
 pitch = {
-    'address' : 131, #don't forget to change back to 128
+    'address' : 128, #don't forget to change back to 128
     'channel' : 0,
     'pulses_min' : 0,      
     'pulses_max' : 355000,
@@ -12,16 +12,16 @@ pitch = {
     }
 
 test = {
-    'address' : 128,
+    'address' : 133,
     'channel' : 0,
     'pulses_min' : 0,      
-    'pulses_max' : 100000,
+    'pulses_max' : 20000, #100000 AT 12v
     'pulses_unit' : 2000,   
     'length' : 50.0,         
     'unit' : 'centimeter(s)',
-    'speed_pulses' : 10000,   
+    'speed_pulses' : 6000,   
     'speed_manual' : 75, 
-    'ready' : 75000 # 25.0 degrees
+    'ready' : 10000  #75000 # 25.0 degrees
     }          
 
 rotation = {
@@ -83,6 +83,32 @@ case = {
     'speed_pulses_close' : -500
     }
 
+wheelL = { 
+    'address' : 132,
+    'channel' : 0,
+    'pulses_min' : 0,      
+    'pulses_max' : 6154, # 10 turns
+    'pulses_unit' : 25,   
+    'length' : 250.0,         
+    'unit' : 'centimeter(s)',
+    'speed_pulses' : 500,   
+    'speed_manual' : 15, 
+    'ready' : 3000 # 25.0 degrees
+    }          
+
+wheelR = {
+    'address' : 132,
+    'channel' : 1,
+    'pulses_min' : 0,
+    'pulses_max' : 6154, # 10 turns
+    'pulses_unit' : 25,
+    'length' : 250.0, 
+    'unit' : 'centimeter(s)',
+    'speed_pulses' : 500, 
+    'speed_manual' : 15,    
+    'ready' : 3000 # 5.0 cm 
+    }
+
 std_accel = 400000          # Max accel = 655359. This variable is a dampened accel
 std_deccel = 300000         # Max deccel = 655359. This variable is a dampened deccel
 
@@ -99,3 +125,31 @@ if rotation['speed_pulses'] > 16000 or rotation['speed_manual'] > 15:
     rotation['speed_pulses'] = 16000
     rotation['speed_manual'] = 15
     raise Warning("Rotation speeds are reset to original.\nIncreased speed = danger\nUpdate this security if sure you can increase speed.")
+
+errorListing = {
+  0x000000: 'Normal',
+  0x000001: 'E-Stop',
+  0x000002: 'Temperature Error',
+  0x000004: 'Temperature 2 Error',
+  0x000008: 'Main Voltage High Error',
+  0x000010: 'Logic Voltage High Error',
+  0x000020: 'Logic Voltage Low Error',
+  0x000040: 'M1 Driver Fault Error',
+  0x000080: 'M2 Driver Fault Error',
+  0x000100: 'M1 Speed Error',
+  0x000200: 'M2 Speed Error',
+  0x000400: 'M1 Position Error',
+  0x000800: 'M2 Position Error ',
+  0x001000: 'M1 Current Error',
+  0x002000: 'M2 Current Error',
+  0x010000: 'M1 Over Current Warning',
+  0x020000: 'M2 Over Current Warning',
+  0x040000: 'Main Voltage High Warning',
+  0x080000: 'Main Voltage Low Warning',
+  0x100000: 'Temperature Warning',
+  0x200000: 'Temperature 2 Warning',
+  0x400000: 'S4 Signal Triggered',
+  0x800000: 'S5 Signal Triggered',
+  0x01000000: 'Speed Error Limit Warning',
+  0x02000000: 'Position Error Limit Warning'
+}

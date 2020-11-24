@@ -5,19 +5,19 @@ def main():
 
     lnchr = Launcher()
 
-    reset_thread = threading.Thread(name = 'reset_thread', target = lnchr.reset_encoders)
-    reset_thread.start()
-    reset_event = threading.Event()
+    # reset_thread = threading.Thread(name = 'reset_thread', target = lnchr.reset_encoders)
+    # reset_thread.start()
+    # reset_event = threading.Event()
 
     testThread = threading.Thread(name = 'testThread', target = lnchr.testBuf)
     testThread.start()
-##    testEvent = threading.Event()
+    testEvent = threading.Event()
 
     # wait_thread = threading.Thread(name = 'wait_thread', target = lnchr.case.bufferarithmetic)
     # wait_thread.start()
 
-    light_thread = threading.Thread(name = 'light_thread', target = lnchr.lights)
-    light_thread.start()
+    # light_thread = threading.Thread(name = 'light_thread', target = lnchr.lights)
+    # light_thread.start()
 
     # print(lnchr.launch.down())
     # print(lnchr.motors)

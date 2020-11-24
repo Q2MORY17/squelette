@@ -112,8 +112,8 @@ class Motor():
         return (rc.ReadMainBatteryVoltage(self.address)[1]/10)
 
     def status(self):
-        return (rc.ReadError(self.address)[self.channel + 1])
-                
+        # return (config.errorListing(rc.ReadError(self.address)[self.channel + 1]))
+        return (rc.ReadError(self.address)[1])        
 
 class case_motors(Motor):
 
