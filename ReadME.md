@@ -304,3 +304,9 @@ PROBLEMS STILL AFOOT:
 7. Test **STANDBY**
 9. Maybe switch at this point to the computer so that you can run a smooth **LAUNCH** and attempt (video documented), **PREPARE**, **LAUNCH**, **STANDBY**. Best would probably be if we test that from the testPi rather than the Computer. Then it is time to compare the code from the testPi and the one found in the LauncherPi. 
 10. Think about how your code could be implemented in this system, take out the rotation motor and tune it, start to look at adding a servo motor and what that would mean for the system or how it would be done.
+
+[**ENTRY LOG 2020-12-14**]: All systems are a go.<br>
+One problem left, with the launcher. here are the tests that must be ran to determine if I am right:
++ Go look at the home set up on Motion Studio. Check the encoder box and try to run a Speed command. What happens then?
++ I believe that the issue lies there. it is basically an encoder alignment issue. Test real quick at home to establish viability and then run again on system on friday.
++ I have also realised that I have been wrong for a while about something. It is the Launcher motor that has damaged the old 129 roboclaw... Something to keep in mind.
