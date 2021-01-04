@@ -154,6 +154,20 @@ class launch_motor(Motor):
         self.acceleration = acceleration
         self.decceleration = decceleration
 
+    def up(self):
+        command = [rc.SpeedM1, rc.SpeedM2]
+        try:
+            command[self.channel](self.address, self.speed_pulses)
+        except AttributeError:
+            print(command[self.channel])
+    
+    def down(self):
+        command = [rc.SpeedM1, rc.SpeedM2]
+        try:
+            command[self.channel](self.address, self.speed_pulses)
+        except AttributeError:
+            print(command[self.channel])
+
     def launch_drone(self):
         try:
             rc.SpeedAccelDeccelPositionM1(self.address, self.acceleration, self.speed_pulses_launch, self.decceleration, self.overshoot, 1)
@@ -164,6 +178,20 @@ class pitch_motor(Motor):
 
     def __inti__(self, address, channel, pulses_min, pulses_max, pulses_unit, length, unit, speed_pulses, speed_manual, ready):
         super().__init__(address, channel, pulses_min, pulses_max, pulses_unit, length, unit, speed_pulses, speed_manual, ready)
+
+    def up(self):
+        command = [rc.BackwardM1, rc.BackwardM2]
+        try:
+            command[self.channel](self.address, self.speed_manual)
+        except AttributeError:
+            print(command[self.channel])
+    
+    def down(self):
+        command = [rc.ForwardM1, rc.ForwardM2]
+        try:
+            command[self.channel](self.address, self.speed_manual)
+        except AttributeError:
+            print(f"{command[self.channel]}")
 
     def position_absolute(self):
         command = [rc.SpeedAccelDeccelPositionM1, rc.SpeedAccelDeccelPositionM2]

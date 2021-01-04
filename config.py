@@ -64,7 +64,7 @@ launch = {
     'ready' : 8000, # 60 cm
     'mount' : 17000,
     'overshoot' : 23000,
-    'acceleration' : 500000, 
+    'acceleration' : 400000, 
     'decceleration' : 200000
     }
 
@@ -109,7 +109,7 @@ wheelR = {
     'ready' : 3000 # 5.0 cm 
     }
 
-std_accel = 400000          # Max accel = 655359. This variable is a dampened accel
+std_accel = 500000          # Max accel = 655359. This variable is a dampened accel
 std_deccel = 300000         # Max deccel = 655359. This variable is a dampened deccel
 
 case_closed = True             # Open/close index

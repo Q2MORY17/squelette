@@ -49,8 +49,11 @@ class Launcher():
 
     def reset_encoders(self):
         """ Drives back all of the motors to reset them to 0 """
-        print(threading.currentThread().getName(), 'Live')
+        # print(threading.currentThread().getName(), 'Live')
+        pass
 
+    def standby(self):
+        pass
 
     def prepare(self):
         self.case.up()
