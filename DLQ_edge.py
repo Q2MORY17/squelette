@@ -82,7 +82,7 @@ def function_lift_stop():
 
 @app.route('/app_launch_forwards', methods=['POST'])
 def function_launch_forwards():
-    lnchr._launch.up() # Needs its own up and down routine here. Pitch also
+    lnchr._launch.up()
     return (''), 204
 
 @app.route('/app_launch_backwards', methods=['POST'])

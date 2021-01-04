@@ -53,21 +53,21 @@ class Launcher():
         pass
 
     def standby(self):
-        pass
+        self.pitch.position(self.pitch.pulses_min)
+        self.lift.position(self.pitch.pulses_min)
+        self._launch.position(self._launch.ready)
 
     def prepare(self):
         self.case.up()
-        for i in self.motors[:-1]:
-            i.position(i.ready)
-        """ self.pitch.position(self.pitch.ready)
+        self.pitch.position(self.pitch.ready)
         self.rotation.position(self.rotation.ready)
         self.lift.position(self.lift.ready)
-        self._launch.position(self._launch.ready) """
+        self._launch.position(self._launch.pulses_min)
 
     def launch(self):
-        """if case_closed == True:
-            self.case_up_with_buffer()
-            when done -> launching routine"""
+        """
+        for this, the case MUST be open AND the ramp must be checked to be at its minimum
+        """
         if config.case_closed == True:
             self.case.up()
             for i in range(5):
@@ -76,7 +76,10 @@ class Launcher():
         return self._launch.launch_drone()
 
     def mount(self):
-        # mount_position = []
+        """
+        for this the case MUST be opened also. A regular scenario would be to launch ->
+        place launcher in standby -> reload when drone is returned later.
+        """
         self.case.up()
         self.pitch.position(self.pitch.pulses_max)
         self.rotation.position(self.rotation.pulses_max)
