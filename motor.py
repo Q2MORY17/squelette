@@ -113,7 +113,7 @@ class Motor():
 
     def status(self):
         # return (config.errorListing(rc.ReadError(self.address)[self.channel + 1]))
-        return (rc.ReadError(self.address)[1])        
+        return (rc.ReadError(self.address)) # removed the [1]        
 
 class case_motors(Motor):
 
