@@ -1,3 +1,11 @@
+"""
+launcher.py is a class that describes the actual launcher and its larger functions. Where more than one motor
+is used at a time. Their __init__ is convoluted but it is done so to show the similarities in the setup.
+this launcher can be updated with new motors or motors can be removed. 
+all codes that contain 'test' are to be seen as test only motors that are not present on the actual launcher
+but rather tested on in the lab.
+"""
+
 from motor import Motor, case_motors, launch_motor, pitch_motor
 import config
 from time import sleep

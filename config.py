@@ -1,3 +1,7 @@
+"""
+config.py is the 'header' file feeding motor.py and launcher.py
+"""
+
 pitch = {
     'address' : 128, #don't forget to change back to 128
     'channel' : 0,

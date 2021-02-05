@@ -1,3 +1,8 @@
+"""
+main.py is used for quick testing without GUI.
+When ran, it is possible to interact with the entire system from CLI or shell
+"""
+
 from launcher import *
 import threading
 

@@ -1,3 +1,7 @@
+"""
+test_launcher.py checks that all motors controllers are responsive
+"""
+
 import unittest
 from launcher import Launcher
 

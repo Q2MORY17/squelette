@@ -1,3 +1,7 @@
+"""
+setup.py is a one motor test area used in the early stage development of the larger code. 
+"""
+
 pitch_raw = {
     'address' : 128,
     'channel' : 0,

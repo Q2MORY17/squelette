@@ -1,3 +1,10 @@
+"""
+flaskGUI.py uploads and interfaces with the launcher onto the web.
+feel free to run this page and follow the link in your CLI/Shell to see the inteface.
+the flaskGUI.py requires the launcher.py to interface with the launcher and 
+all the HTML, CSS and JavaScript files to interface with the net.
+"""
+
 #DRONE LAUNCHER
 
 from flask import Flask, render_template, request, jsonify

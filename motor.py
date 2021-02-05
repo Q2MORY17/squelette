@@ -1,3 +1,8 @@
+"""
+motor.py populates each motor with their common and individual properties.
+this is a dynamic reinterpretation of roboclaw.py which was provided by the roboclaw (motor controller) manufacturers
+"""
+
 # from flask import Flask, render_template, request, jsonify
 from roboclaw import Roboclaw
 import socket
