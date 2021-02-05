@@ -1,4 +1,4 @@
-# SSRS launcher (Flask free) 
+# SSRS launcher 
 
 ## config.py
 all variables are set into dictionnaries for simplicity
